@@ -1,0 +1,846 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>second mensiversary</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        }
+
+       body {
+    background: url("images/bg.jpg");
+    background-size: cover;        /* biar nutup seluruh layar */
+    background-position: center;   /* biar posisinya pas */
+    background-repeat: no-repeat;  /* biar ga keulang */
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+
+        .mac-window {
+    width: 900px;
+    height: auto;      /* <<< ini kuncinya */
+    min-height: 100vh;
+            background: rgba(255, 255, 255, 0.85);
+            border-radius: 8px;
+            box-shadow: 
+                0 10px 30px rgba(0, 0, 0, 0.08),
+                0 6px 10px rgba(0, 0, 0, 0.05),
+                inset 0 1px 0 rgba(255, 255, 255, 0.6);
+            backdrop-filter: blur(10px);
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.5);
+        }
+
+       @media (max-width: 600px) {
+    .mac-window {
+        height: auto !important;
+        min-height: auto !important;
+    }
+
+    .window-content {
+        flex: unset !important;     /* <<< ini yang paling penting */
+        height: auto !important;
+    }
+
+    .content-area {
+        height: auto !important;
+    }
+}
+
+
+        .window-header {
+            height: 35px;
+            display: flex;
+            align-items: center;
+            padding: 0 10px;
+            background: rgba(255, 255, 255, 0.7);
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+        }
+
+        .traffic-lights {
+            display: flex;
+            gap: 8px;
+        }
+
+        .traffic-light {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+        }
+
+        .red {
+            background-color: #ff5f57;
+        }
+
+        .yellow {
+            background-color: #ffbd2e;
+        }
+
+        .green {
+            background-color: #28ca42;
+        }
+
+        .window-content {
+            display: flex;
+            flex: 1;
+            overflow: hidden;
+        }
+
+        .sidebar {
+            width: 220px;
+            background: rgba(248, 248, 248, 0.8);
+            border-right: 1px solid rgba(0, 0, 0, 0.05);
+            padding: 20px 0;
+            overflow-y: auto;
+        }
+
+        .sidebar-section {
+            margin-bottom: 25px;
+        }
+
+        .sidebar-title {
+            font-size: 12px;
+            font-weight: 600;
+            color: #8a8a8a;
+            padding: 0 20px 8px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .sidebar-item {
+            display: flex;
+            align-items: center;
+            padding: 8px 20px;
+            font-size: 14px;
+            color: #333;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .sidebar-item:hover {
+            background: rgba(0, 0, 0, 0.03);
+        }
+
+        .sidebar-item.active {
+    background-color: #e6f0ff;
+    color: #2b68ff;
+    border-radius: 6px;
+}
+.content-overlay::-webkit-scrollbar {
+    width: 0;
+    background: transparent;
+}
+
+
+        .sidebar-icon {
+            width: 18px;
+            height: 18px;
+            margin-right: 12px;
+            opacity: 0.7;
+        }
+
+        .content-area {
+            flex: 1;
+            padding: 25px;
+            overflow-y: auto;
+            position: relative;
+        }
+
+        .content-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            margin-bottom: 30px;
+        }
+
+        .content-titles h1 {
+            font-size: 20px;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 1px;
+        }
+
+        @media (max-width: 600px) {
+    .content-titles h1 {
+        font-size: 18px !important;
+    }
+}
+
+
+        .content-titles h2 {
+            font-size: 14px;
+            font-weight: 400;
+            color: #8a8a8a;
+            letter-spacing: 0.5px;
+        }
+
+        .content-actions {
+            display: flex;
+            gap: 15px;
+        }
+
+        .action-icon {
+            width: 16px;
+            height: 16px;
+            opacity: 0.6;
+            cursor: pointer;
+            transition: opacity 0.2s;
+        }
+
+        .action-icon:hover {
+            opacity: 0.9;
+        }
+
+        .folders-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 40px;
+        }
+
+        .folder {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+
+        .folder:hover {
+            transform: translateY(-5px);
+        }
+
+        .folder-icon {
+    width: 80px;
+    height: 60px;
+    background: linear-gradient(135deg, #ff9eb4 0%, #ff9eb4 100%);
+    border-radius: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 4px;
+    position: relative;
+}
+
+.folder-icon::before {
+    content: '';
+    position: absolute;
+    top: -10px;
+    left: 12px;
+    width: 45px;
+    height: 14px;
+    background: linear-gradient(135deg, #ffb7c5 0%, #ffb7c5 100%);
+    border-radius: 4px 4px 1px 1px;
+}
+
+
+        .folder-content {
+            text-align: center;
+        }
+
+        .folder-name {
+            font-size: 15px;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 6px;
+        }
+
+        .folder-desc {
+            font-size: 12px;
+            color: #8a8a8a;
+            line-height: 1.4;
+        }
+
+        /* Content Overlay Styles */
+       .content-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100% !important;
+    height: 100% !important;
+    transform: none !important;
+    background: white;
+    border-radius: 0;   /* biar bener-bener full */
+    padding: 25px;
+    z-index: 50;
+    display: none;
+    overflow-y: auto;
+}
+
+/* Cerita Kita & Reason Why I Love You -> panjang full */
+#cerita-content,
+#love-content {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;        /* penuh */
+    height: 100%;       /* penuh sampe bawah */
+    border-radius: 0;   /* gak kotak lagi */
+    padding: 25px;
+    overflow-y: auto;
+}
+
+
+
+#popup-blur {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    backdrop-filter: blur(8px);
+    background: rgba(0,0,0,0.1);
+    display: none;
+    z-index: 40;
+}
+
+
+
+
+
+        .overlay-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+        }
+
+        .overlay-title {
+            font-size: 24px;
+            font-weight: 700;
+            color: #333;
+        }
+
+        .close-btn {
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            background: rgba(0, 0, 0, 0.05);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .close-btn:hover {
+            background: rgba(0, 0, 0, 0.1);
+        }
+
+
+        .typewriter-text {
+            font-size: 16px;
+            line-height: 1.6;
+            color: #444;
+            min-height: 200px;
+            white-space: pre-wrap;
+        }
+
+        .cursor {
+            display: inline-block;
+            width: 8px;
+            height: 18px;
+            background: #ff9eb4;
+            margin-left: 2px;
+            animation: blink 1s infinite;
+        }
+
+        @keyframes blink {
+            0%, 50% { opacity: 1; }
+            51%, 100% { opacity: 0; }
+        }
+
+        /* Photo Gallery */
+        .gallery-container {
+    display: flex;
+    gap: 12px;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    padding-bottom: 10px;
+}
+
+.gallery-container::-webkit-scrollbar {
+    height: 6px;
+}
+
+.gallery-container::-webkit-scrollbar-thumb {
+    background: #ccc;
+    border-radius: 4px;
+}
+
+.photo-placeholder {
+    flex: 0 0 auto;      /* wajib biar bisa geser */
+    width: 200px;        /* ubah sesuai selera */
+    height: 200px;
+    border-radius: 10px;
+    scroll-snap-align: center;
+}
+
+
+        .memory-photo {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 4px;
+}
+
+
+        /* Love List */
+        .love-list {
+            list-style: none;
+            margin-bottom: 20px;
+        }
+
+        .love-list li {
+            font-size: 13px;
+            padding: 12px 15px;
+            margin-bottom: 8px;
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.03);
+            border-left: none !important;
+            transition: transform 0.2s;
+        }
+
+        .love-list li:hover {
+            transform: translateX(5px);
+        }
+
+        /* Icons */
+        .icon {
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
+        }
+
+        .icon-folder {
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z'%3E%3C/path%3E%3C/svg%3E");
+        }
+
+        .icon-search {
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='11' cy='11' r='8'%3E%3C/circle%3E%3Cpath d='m21 21-4.3-4.3'%3E%3C/path%3E%3C/svg%3E");
+        }
+
+        .icon-menu {
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cline x1='3' y1='6' x2='21' y2='6'%3E%3C/line%3E%3Cline x1='3' y1='12' x2='21' y2='12'%3E%3C/line%3E%3Cline x1='3' y1='18' x2='21' y2='18'%3E%3C/line%3E%3C/svg%3E");
+        }
+
+        .icon-airdrop {
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='18' height='18' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M12 2L2 7l10 5 10-5-10-5z'%3E%3C/path%3E%3Cpath d='M2 17l10 5 10-5'%3E%3C/path%3E%3Cpath d='M2 12l10 5 10-5'%3E%3C/path%3E%3C/svg%3E");
+        }
+
+        .icon-recents {
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='18' height='18' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='12' cy='12' r='10'%3E%3C/circle%3E%3Cpolyline points='12 6 12 12 16 14'%3E%3C/polyline%3E%3C/svg%3E");
+        }
+
+        .icon-documents {
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='18' height='18' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z'%3E%3C/path%3E%3Cpolyline points='14 2 14 8 20 8'%3E%3C/polyline%3E%3Cline x1='16' y1='13' x2='8' y2='13'%3E%3C/line%3E%3Cline x1='16' y1='17' x2='8' y2='17'%3E%3C/line%3E%3Cpolyline points='10 9 9 9 8 9'%3E%3C/polyline%3E%3C/svg%3E");
+        }
+
+        .icon-icloud {
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='18' height='18' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M18 10h-1.26A8 8 0 1 0 9 20h9a5 5 0 0 0 0-10z'%3E%3C/path%3E%3C/svg%3E");
+        }
+
+        .icon-books {
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='18' height='18' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M4 19.5A2.5 2.5 0 0 1 6.5 17H20'%3E%3C/path%3E%3Cpath d='M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z'%3E%3C/path%3E%3C/svg%3E");
+        }
+
+        .icon-downloads {
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='18' height='18' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4'%3E%3C/path%3E%3Cpolyline points='7 10 12 15 17 10'%3E%3C/polyline%3E%3Cline x1='12' y1='15' x2='12' y2='3'%3E%3C/line%3E%3C/svg%3E");
+        }
+
+        .icon-music {
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='18' height='18' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M9 18V5l12-2v13'%3E%3C/path%3E%3Ccircle cx='6' cy='18' r='3'%3E%3C/circle%3E%3Ccircle cx='18' cy='16' r='3'%3E%3C/circle%3E%3C/svg%3E");
+        }
+
+        .icon-safari {
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='18' height='18' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='12' cy='12' r='10'%3E%3C/circle%3E%3Cpath d='m15 9-6 6'%3E%3C/path%3E%3Cpath d='m9 9 6 6'%3E%3C/path%3E%3C/svg%3E");
+        }
+
+        .icon-close {
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cline x1='18' y1='6' x2='6' y2='18'%3E%3C/line%3E%3Cline x1='6' y1='6' x2='18' y2='18'%3E%3C/line%3E%3C/svg%3E");
+        }
+
+        .icon-camera {
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='30' height='30' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z'%3E%3C/path%3E%3Ccircle cx='12' cy='13' r='4'%3E%3C/circle%3E%3C/svg%3E");
+        }
+
+        .icon-heart {
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='18' height='18' viewBox='0 0 24 24' fill='none' stroke='%23ff9eb4' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z'%3E%3C/path%3E%3C/svg%3E");
+        }
+
+/* --- MOBILE FIX: Sidebar lebih kecil & konten lebih lebar --- */
+
+@media (max-width: 600px) {
+
+    /* Sidebar diperkecil */
+    .sidebar {
+        width: 140px;            /* dari 220px → lebih ramping */
+        padding: 10px 0;
+    }
+
+    /* Judul sidebar lebih kecil */
+    .sidebar-title {
+        font-size: 10px;
+        padding-left: 15px;
+    }
+
+    /* Item sidebar lebih kecil */
+    .sidebar-item {
+        padding: 6px 15px;
+        font-size: 13px;
+    }
+
+    .sidebar-icon {
+        width: 16px;
+        height: 16px;
+        margin-right: 8px;
+    }
+
+    /* Konten folder diperbesar area-nya */
+    .content-area {
+        padding: 20px;
+    }
+
+    .content-header h1 {
+        font-size: 24px;
+    }
+
+    /* Grid folder jadi punya ruang lebih lega */
+    .folders-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 25px;
+    }
+
+    /* Folder icon juga sedikit diperkecil biar proporsional */
+    .folder-icon {
+        width: 85px;
+        height: 58px;
+    }
+
+    .folder-name {
+        font-size: 12px;
+    }
+}
+
+
+
+@media (max-width: 600px) {
+    .folders-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 20px;
+    }
+
+    .folder-icon {
+        width: 70px;
+        height: 50px;
+    }
+
+    .folder-name {
+        font-size: 12px;
+    }
+}
+
+@media (max-width: 600px) {
+    .content-overlay {
+        width: 100% !important;
+        height: 100% !important;
+        border-radius: 0 !important;
+        top: 0 !important;
+        left: 0 !important;
+        transform: none !important;
+        padding: 15px;
+    }
+}
+
+
+@media (max-width: 600px) {
+    #cerita-content,
+    #love-content {
+        padding: 20px;
+        height: 100%;
+        width: 100%;
+        border-radius: 0;
+    }
+}
+
+
+    .overlay-title {
+        font-size: 18px;
+    }
+
+
+@media (max-width: 600px) {
+    .gallery-container {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 10px;
+    }
+}
+@media (max-width: 600px) {
+    .typewriter-text {
+        font-size: 14px;
+        line-height: 1.5;
+    }
+}
+
+        
+    </style>
+</head>
+<body>
+    <div id="popup-blur"></div>
+    <div class="mac-window">
+        <div class="window-header">
+            <div class="traffic-lights">
+                <div class="traffic-light red"></div>
+                <div class="traffic-light yellow"></div>
+                <div class="traffic-light green"></div>
+            </div>
+        </div>
+        
+        <div class="window-content">
+            <div class="sidebar">
+                <div class="sidebar-section">
+                    <div class="sidebar-title">Favorites</div>
+                    <div class="sidebar-item">
+                        <div class="sidebar-icon icon icon-airdrop"></div>
+                        <span>Share</span>
+                    </div>
+                    <div class="sidebar-item active">
+                        <div class="sidebar-icon icon icon-recents"></div>
+                        <span>Recents</span>
+                    </div>
+                    <div class="sidebar-item">
+                        <div class="sidebar-icon icon icon-documents"></div>
+                        <span>Documents</span>
+                    </div>
+                    <div class="sidebar-item">
+                        <div class="sidebar-icon icon icon-icloud"></div>
+                        <span>Heartbeat</span>
+                    </div>
+                    <div class="sidebar-item">
+                        <div class="sidebar-icon icon icon-books"></div>
+                        <span>Library</span>
+                    </div>
+                </div>
+                
+                <div class="sidebar-section">
+                    <div class="sidebar-title">Set Up</div>
+                    <div class="sidebar-item">
+                        <div class="sidebar-icon icon icon-downloads"></div>
+                        <span>Downloads</span>
+                    </div>
+                    <div class="sidebar-item">
+                        <div class="sidebar-icon icon icon-music"></div>
+                        <span>Music</span>
+                    </div>
+                    <div class="sidebar-item">
+                        <div class="sidebar-icon icon icon-safari"></div>
+                        <span>Deleted</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="content-area">
+                <div class="content-header">
+                    <div class="content-titles">
+                        <h2>Isylda's</h2>
+                        <h1>Recent</h1>
+                    </div>
+                    
+                    <div class="content-actions">
+                        <div class="action-icon icon icon-search"></div>
+                        <div class="action-icon icon icon-menu"></div>
+                    </div>
+                </div>
+                
+                <div class="folders-grid">
+                    <div class="folder" onclick="showContent('cerita')">
+                        <div class="folder-icon">
+                            <div class="icon icon-folder"></div>
+                        </div>
+                        <div class="folder-content">
+                            <div class="folder-name">love note</div>
+                        </div>
+                    </div>
+                    
+                    <div class="folder" onclick="showContent('memori')">
+                        <div class="folder-icon">
+                            <div class="icon icon-folder"></div>
+                        </div>
+                        <div class="folder-content">
+                            <div class="folder-name">snapshots</div>
+                        </div>
+                    </div>
+                    
+                    <div class="folder" onclick="showContent('love')">
+                        <div class="folder-icon">
+                            <div class="icon icon-folder"></div>
+                        </div>
+                        <div class="folder-content">
+                            <div class="folder-name">reasons why ily</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Cerita Kita Content -->
+                <!-- Cerita Kita Content -->
+<div id="cerita-content" class="content-overlay">
+    <div class="overlay-header">
+        <div class="overlay-title">love note</div>
+        <div class="close-btn icon icon-close" onclick="hideContent('cerita')"></div>
+    </div>
+
+    <div class="typewriter-container">
+        <div id="typewriter-text" class="typewriter-text"></div>
+    </div>
+</div> <!-- FIXED: This was missing -->
+
+
+                
+                <!-- Memori Content -->
+                <div id="memori-content" class="content-overlay">
+                    <div class="overlay-header">
+                        <div class="overlay-title">snapshoots</div>
+                        <div class="close-btn icon icon-close" onclick="hideContent('memori')"></div>
+                    </div>
+                    <div class="gallery-container">
+
+    <div class="photo-placeholder">
+        <img src="images/foto1.jpeg" class="memory-photo" alt="">
+    </div>
+
+    <div class="photo-placeholder">
+        <img src="images/foto2.jpeg" class="memory-photo" alt="">
+    </div>
+
+    <div class="photo-placeholder">
+        <img src="images/foto3.jpeg" class="memory-photo" alt="">
+    </div>
+
+    <div class="photo-placeholder">
+        <img src="images/foto4.jpeg" class="memory-photo" alt="">
+    </div>
+
+    <div class="photo-placeholder">
+        <img src="images/foto5.jpeg" class="memory-photo" alt="">
+    </div>
+
+    <div class="photo-placeholder">
+        <img src="images/foto6.jpeg" class="memory-photo" alt="">
+    </div>
+
+</div>
+
+                    <p style="color: #666; font-size: 14px; text-align: center;">if i could pause a moment, it’d probably be this one with you.</p>
+                </div>
+                
+                <!-- Love List Content -->
+                <div id="love-content" class="content-overlay">
+                    <div class="overlay-header">
+                        <div class="overlay-title">reasons why ily</div>
+                        <div class="close-btn icon icon-close" onclick="hideContent('love')"></div>
+                    </div>
+                    <ul class="love-list">
+                        <li>I love you because you choose me, not just once, but again and again without making it feel like a burden.</li>
+                        <li>I love you because your presence feels steady, like something I can rely on when everything else feels uncertain.</li>
+                        <li>I love you because you make me feel loved in ways that are soft and real.</li>
+                        <li>I love you because being with you doesn’t feel temporary, it feels like something worth holding onto.</li>
+                        <li>I love you because you make the idea of “us” feel safe, not confusing or complicated.</li>
+                        <li>I love you because you stay, even in the quiet, even when nothing special is happening.</li>
+                        <li>I love you because you turn small moments into something meaningful just by being there.</li>
+                        <li>I love you because with you, I don’t feel like I have to search for love anymore, I just feel it.</li>
+                    </ul>
+                    <p style="color: #666; font-size: 12px; text-align: center; margin-top: 20px;">and so many more reasons that would fill countless pages.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <script>
+       function startTypewriter() {
+    const textElement = document.getElementById('typewriter-text');
+
+    // STOP typewriter lama
+    if (typewriterTimeout) clearTimeout(typewriterTimeout);
+
+    textElement.innerHTML = '';   // reset 100%
+    typewriterRunning = true;
+
+    const text = `Dear, Jameson
+
+I don’t think I say this enough, but having you in my life feels like something I never want to lose. Thank you for being here, for choosing me, and for making me feel loved in ways that are so gentle and real. I hope we get to keep building more moments together, one day at a time.
+
+With love, Isylda`;
+    let i = 0;
+    const speed = 30;
+
+    function typeWriter() {
+        if (!typewriterRunning) return;   // kalau overlay ditutup → stop
+
+        if (i < text.length) {
+            textElement.innerHTML += text[i] === '\n' ? '<br>' : text[i];
+            i++;
+            typewriterTimeout = setTimeout(typeWriter, speed);
+        } else {
+            textElement.innerHTML += `<span class="cursor"></span>`;
+        }
+    }
+
+    typeWriter();
+}
+
+        
+        let typewriterRunning = false;
+let typewriterTimeout = null;
+
+        
+        // Initialize with typewriter ready
+        document.addEventListener('DOMContentLoaded', function() {
+    document.getElementById('typewriter-text').innerHTML = '';
+});
+
+
+   function showContent(type) {
+       document.querySelectorAll('.content-overlay').forEach(overlay => {
+           overlay.style.display = 'none';
+       });
+
+       const overlay = document.getElementById(`${type}-content`);
+       overlay.style.display = 'block';
+
+       if (type === 'cerita') {
+           startTypewriter();
+       }
+   }
+
+   function hideContent(type) {
+    const overlay = document.getElementById(`${type}-content`);
+    overlay.style.display = 'none';
+
+    if (type === 'cerita') {
+        typewriterRunning = false;
+        document.getElementById('typewriter-text').innerHTML = '';
+    }
+}
+
+
+
+
+    </script>
+</body>
+</html>
+
